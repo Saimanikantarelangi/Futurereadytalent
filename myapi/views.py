@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .forms import UserForm
 from .models import Posts,User
@@ -54,7 +54,6 @@ def addpost(request):
         title = request.POST["utitle"]
         content = request.POST["ucontent"]
         username = request.session['username']
-        print((username))
         ex = User.objects.get(Username=username)
         request.session['username'] = ex.Username
 
@@ -62,13 +61,18 @@ def addpost(request):
         p.save()
         data=Posts.objects.filter(Username=ex)
         context={
-            "data":data
+            "data":data,
         }
-        print(data)
+
         return render(request,"home.html",context)
         #
     else:
         return render(request,"addpost.html")
+def postdetail(request,id):
+
+    pdata= Posts.objects.get(id=id)
+    return render(request,"post_detail.html",{'pdata':pdata})
+
 
 
 

@@ -9,8 +9,11 @@ class User(models.Model):
         phone = models.CharField(max_length=30)
         pass1 = models.CharField(max_length=200)
 
+        def __str__(self):
+            return self.Username
+
 class Posts(models.Model):
-    aurt = models.CharField(max_length=15,default=True)
+    aurt = models.CharField(max_length=15,default=User)
     title = models.CharField(max_length=20)
     content = models.TextField()
     date = models.DateTimeField(blank=True,default=timezone.now)

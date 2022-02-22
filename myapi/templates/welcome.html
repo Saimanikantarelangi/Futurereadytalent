@@ -2,40 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.2/css/bulma.min.css" />
+     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
 </head>
 <body>
-<nav>
-<div class="fo">
-    <a href="welcome.html" style="font-weight:bold;">BLOG</a>
-    <a href="/login" style="font-weight:bold;">LOGIN</a>
-    <a href="/register" style="font-weight:bold;">REGISTER</a>
-
-<form action="/search" method="get">
-    {% csrf_token %}
-    <input type="search" name="query" id="query" placeholder="search blog">
-    <button type="submit">Search</button>
-</form>
+<nav class="navbar">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <strong class="navbar-item is-active is-size-5 has-text-weight-semibold">Django-blog</strong>
+        </a>
+        <span class="navbar-burger burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          <div class=" navbar-item">
+            <div class="control has-icons-left">
+              <form action="/search" method="get">
+                    {% csrf_token %}
+                    <input class="input is rounded" type="search" name="query" id="query" placeholder="search blog">
+              </form>
+              <span class="icon is-left">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+          </div>
+          <a class="navbar-item is-active is-size-5 has-text-weight-semibold" href="/login">
+            Login
+          </a>
+          <a class="navbar-item is-size-5 has-text-weight-semibold" href="/register">
+            Register
+          </a>
+          <a class="navbar-item is-size-5 has-text-weight-semibold">
+            Contact
+          </a>
+        </div>
+      </div>
     </div>
-    </nav>
-<div class="card">
+  </nav>
+<div class="card1">
 {% for Post in ldata %}
-
     <div class="scroll">
-<a href="home.html"><h1>{{Post.title}}</h1></a>
-<h4>{{Post.date}}</h4>
-<p>{{Post.content}}</p>
-        <h6 style=" font-size:15px;font-style:italic; float: right; margin-right:10px; margin-top:-5px;"> by {{Post.aurt}}</h6>
+        <h3 style="font-size:1rem;">{{Post.date|date:'M d,y h:i'}}</h3>
+        <h1 style="font-size:2rem;"><a href="/postdetail/{{Post.id}}">{{Post.title}}</a></h1>
+        <p >{{Post.content}}</p>
+        <h4 style=" font-size:15px;font-style:italic; float: right; "> by {{Post.Username}}</h4>
     </div>
 
 {% endfor %}
     </div>
 
+
+
+
+
 </body>
+ <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Get all "navbar-burger" elements
+      const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+      // Check if there are any navbar burgers
+      if ($navbarBurgers.length > 0) {
+
+        // Add a click event on each of them
+        $navbarBurgers.forEach(el => {
+          el.addEventListener('click', () => {
+
+            // Get the target from the "data-target" attribute
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle('is-active');
+            $target.classList.toggle('is-active');
+
+          });
+        });
+      }
+
+    });
+  </script>
 <style>
 body,html{
 background: #FFFFCC;
 }
+ nav.navbar {
+      height: 6rem !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
+    }
 .fo>a{
 float:left;
 padding:10px;
@@ -50,34 +115,24 @@ background: white;
 border-radius: 10px;
 }
 
-.card{
+.card1{
 margin-top:15px;
-margin-left:50px;
+margin-left:80px;
 }
-form{
-float:right;
-margin-right:80px;
-margin-top:8px;
-}
+
 
 .scroll {
             display:block;
             border: 2px solid #FFFFFF;
-            padding:10px;
-             width:200px;
-            transition: transform .2s;
-            height:200px;
-            overflow:scroll;
-            background: #FFFFFF;
-    box-shadow:5px 5px 5px black;
-    max-width:200px;
-    float:left;
-    margin:20px;
-
-         }
-    .scroll:hover{
-    transform: scale(1.5);
+            padding:20px;
+            width:1150px;
+            height:170px;
+            box-shadow:5px 5px 6px 5px black;
+            margin:20px;
+            background: white;
+            overflow:auto;
     }
+
     a{
     text-decoration:none;
     color:black;
