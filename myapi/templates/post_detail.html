@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.3/css/bulma.min.css" />
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <link rel="stylesheet" href="../css/bulma-divider.min.css">
+
 </head>
 <body>
 {% block body %}
@@ -18,11 +18,40 @@
               <div class="content is-medium">
                 <h2 class="subtitle is-4">{{pdata.date|date:'M d,y h:i'}}</h2>
                 <h1 class="title">{{pdata.title}}</h1>
-                <p>{{pdata.content}}</p>
+                <p>
+                    {{pdata.content}}
+                    <br><strong class="h3">by {{pdata.Username}}</strong><br>
+                </p>
+
+                  <hr>
+                  <h2 class="subtitle is-4">Comments</h2>
+                <form method="post" class="mb-6">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success">Submit your perception</button>
+                        </div>
+                    </div>
+                </form>
+                  {% for comment in pdata.comments.all %}
+                    <article class="media box">
+                        <div class="media-content">
+                            <strong>{{comment.name}}</strong> <small>{{comment.createdat|timesince}} ago</small> <br>
+                                {{comment.body}}
+                        </div>
+                    </article>
+                  {% endfor %}
               </div>
             </div>
           </div>
         </section>
 {% endblock %}
+<style>
+    .h3{
+    float:right;
+    font-style: italic;
+    }
+</style>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <body>
 <div class="fo">
      <a href="welcome.html" style="font-weight:bold;">BLOG</a>
-    <a href="/addpost" style="font-weight:bold;">+Add </a>
+    <a href="addpost" style="font-weight:bold;">+Add </a>
 
 <form action="/search" method="get">
     {% csrf_token %}
@@ -17,13 +17,13 @@
     <a href="" style="font-weight:bold;">Welcome {{username}}</a>
     </div>
 <div class="card">
-{% for Post in data %}
+{% for post in data %}
 
     <div class="scroll">
-<a href="home.html"><h1>{{Post.title}}</h1></a>
-<h4>{{Post.date}}</h4>
-<p>{{Post.content}}</p>
-        <h6 style=" font-size:15px;font-style:italic; float: right; margin-right:10px; margin-top:-5px;"> by {{Post.Username}}</h6>
+<a href="postdetail"><h1>{{post.title}}</h1></a>
+<h4>{{post.date}}</h4>
+<p>{{post.content}}</p>
+        <h6 style=" font-size:15px;font-style:italic; float: right; margin-right:10px; margin-top:-5px;"> by {{post.Username}}</h6>
     </div>
 
 {% endfor %}

@@ -3,47 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+     <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.3/css/bulma.min.css" />
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
+<div class="content is medium">
+    <h1 class="ml-6 mt-6">SEARCH RESULTS</h1>
+    <h2 class="ml-6">Query : {{ res }}</h2>
+</div>
+<hr>
+{% block body %}
 
-{% for Post in respons %}
-
-    <div class="scroll">
-<a href="home.html"><h1>{{Post.title}}</h1></a>
-<h5 style="margin-top:-6px;">{{Post.date}}</h5>
-<p>{{Post.content}}</p>
-        <h6 style=" font-size:15px;font-style:italic; float: right; margin-right:10px; margin-top:-5px;"> by {{Post.aurt}}</h6>
-    </div>
-
+{% for post in respons %}
+<section class="section">
+          <div class="columns">
+            <div class="column is-8 is-offset-2">
+              <div class="content is-medium">
+                <h2 class="subtitle is-4">{{post.date|date:'M d,y h:i'}}</h2>
+                <h1 class="title"><a href="/postdetail/{{post.id}}">{{post.title}}</a></h1>
+                <p>
+                    {{post.content}}
+                    <br><strong class="h3">by {{post.Username}}</strong><br>
+               </p>
+              </div>
+            </div>
+          </div>
+        </section>
+<hr>
+{% empty %}
+<div class="content">
+    <p>
+        No result for the given query...
+    </p>
+</div>
 {% endfor %}
+{% endblock %}
+
 
 </body>
 <style>
-body,html{
-background: #FFFFCC;
-}
 
-
-.scroll {
-            display:block;
-            border: 2px solid #FFFFFF;
-            padding:10px;
-             width:200px;
-            height:200px;
-            overflow:scroll;
-            background: #FFFFFF;
-    box-shadow:5px 5px 5px black;
-    max-width:200px;
-    float:left;
-    margin:20px;
-
-         }
+.h3{
+    float:right;
+    font-style: italic;
+    }
     a{
-    text-decoration:none;
     color:black;
     }
-
-
-
+    a:hover{
+    color:blue;
+    }
 </style>
 </html>

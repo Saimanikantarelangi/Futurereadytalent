@@ -1,7 +1,8 @@
+from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
 
-from .forms import UserForm
+from .forms import UserForm,CommentForm
 from .models import Posts,User
 import requests
 
@@ -43,8 +44,8 @@ def login(request):
 
 def search(request):
     res = request.GET['query']
-    respons = Posts.objects.filter(title__icontains=res)
-    return render(request,'search.html',{'respons':respons})
+    respons = Posts.objects.filter(Q(title__icontains=res) | Q(content__icontains=res) | Q(aurt__icontains=res))
+    return render(request,'search.html',{'respons':respons,'res':res})
 
 def latest(request):
     ldata = Posts.objects.all().order_by('-date')
@@ -71,7 +72,19 @@ def addpost(request):
 def postdetail(request,id):
 
     pdata= Posts.objects.get(id=id)
-    return render(request,"post_detail.html",{'pdata':pdata})
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.pdata = pdata
+            comment.save()
+
+            return redirect('postdetail',id=id)
+    else:
+        form = CommentForm()
+
+    return render(request, "post_detail.html", {'pdata': pdata, 'form': form})
 
 
 
