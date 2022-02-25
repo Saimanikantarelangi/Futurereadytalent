@@ -47,6 +47,8 @@ def search(request):
     respons = Posts.objects.filter(Q(title__icontains=res) | Q(content__icontains=res) | Q(aurt__icontains=res))
     return render(request,'search.html',{'respons':respons,'res':res})
 
+def contact(request):
+    return HttpResponse(request,'contact.html')
 def latest(request):
     ldata = Posts.objects.all().order_by('-date')
     return render(request,'welcome.html',{'ldata':ldata})
@@ -80,7 +82,7 @@ def postdetail(request,id):
             comment.pdata = pdata
             comment.save()
 
-            return redirect('postdetail',id=id)
+            return redirect('postdetail',id=pdata.id)
     else:
         form = CommentForm()
 

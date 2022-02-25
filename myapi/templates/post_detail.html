@@ -25,7 +25,23 @@
 
                   <hr>
                   <h2 class="subtitle is-4">Comments</h2>
-                <form method="post" class="mb-6">
+                  {% if not pdata.comments.all %}
+                    <p>
+                        No comments yet!
+                    </p>
+                  {% endif %}
+                  {% for comment in pdata.comments.all %}
+                    <article class="media box">
+                        <div class="media-content">
+                            <strong>{{comment.name}} at {{comment.createdat|date:'M d,Y,h:i'}}
+                                <small>{{comment.createdat|timesince}} ago</small></strong><br>
+                                {{comment.body}}
+                        </div>
+                    </article>
+                  {% endfor %}
+                  <hr>
+                  <h2 class="subtitle is-4">Add a comment</h2>
+                <form method="post" class="mb-6" action=".">
                     {% csrf_token %}
                     {{form.as_p}}
                     <div class="field">
@@ -34,14 +50,6 @@
                         </div>
                     </div>
                 </form>
-                  {% for comment in pdata.comments.all %}
-                    <article class="media box">
-                        <div class="media-content">
-                            <strong>{{comment.name}}</strong> <small>{{comment.createdat|timesince}} ago</small> <br>
-                                {{comment.body}}
-                        </div>
-                    </article>
-                  {% endfor %}
               </div>
             </div>
           </div>
