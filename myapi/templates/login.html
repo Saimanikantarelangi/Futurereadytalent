@@ -6,9 +6,11 @@
 </head>
 <body>
 <div class="log">
+
 <form action="login" method="post">
     {% csrf_token %}
-    <h1>Login here--></h1>
+    <hr>
+    <h1>Login</h1>
     Username:
     <input type="text" name="uname" id="uname" placeholder="username"><br><br>
     Password:
@@ -18,18 +20,24 @@
     <button type="submit">sign in</button>
 
 </form>
+     <hr>
     </div>
 </body>
 <style>
     .log{
     margin-top:50px;
     margin-left:40px;
-    width:280px;
+    width:580px;
+    height: 650px;
     border-box:5px solid black;
     border-radius:3px;
-    box-shadow:5px 5px 5px black;
+    box-shadow:5px 5px 5px 5px black;
     background-color:#FFFFCC;
-    padding:15px;
+    padding:15px 20px;
+    }
+    form{
+    margin-top:230px;
+    margin-left:100px;
     }
 </style>
 </html>
