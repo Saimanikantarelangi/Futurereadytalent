@@ -5,23 +5,23 @@
     <title>Title</title>
 </head>
 <body>
-<form action="addpost" method="post">
+<form action="addpost" method="post" enctype="multipart/form-data">
   <div class="container">
       {% csrf_token %}
     <h1>------NEW POST--------</h1>
 
     <hr>
       <label><b>Aurthur</b></label>
-      <input type="text" name="uname" id="uname" placeholder="username"><br><br>
+      <input type="text" name="uname" id="uname" placeholder="text"><br><br>
 
     <label><b>Title</b></label>
-      <input type="text" name="utitle" id="utitle" placeholder="username"><br><br>
+      <input type="text" name="utitle" id="utitle" placeholder="text"><br><br>
 
     <label><b>Description</b></label>
-   <input type="text" name="ucontent" id="ucontent" placeholder="username"><br><br>
+   <input type="text" name="ucontent" id="ucontent" placeholder="context"><br><br>
 
-    <label><b>Date</b></label>
-    <input type="text" name="udate" id="udate" placeholder="username"><br><br>
+    <label><b>Image</b></label>
+    <input type="file" name="uimage" id="uimage" placeholder="choose image"><br><br>
   </div>
     <br>
     <button type="submit" >Post</button>

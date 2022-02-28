@@ -56,11 +56,13 @@ def addpost(request):
     if request.method == "POST":
         title = request.POST["utitle"]
         content = request.POST["ucontent"]
+        image=request.POST["uimage"]
         username = request.session['username']
+
         ex = User.objects.get(Username=username)
         request.session['username'] = ex.Username
 
-        p = Posts(title=title, content=content,Username=ex)
+        p = Posts(title=title, content=content,Username=ex,image=image)
         p.save()
         data=Posts.objects.filter(Username=ex)
         context={
@@ -70,6 +72,7 @@ def addpost(request):
         return render(request,"home.html",context)
         #
     else:
+
         return render(request,"addpost.html")
 def postdetail(request,id):
 
@@ -79,14 +82,15 @@ def postdetail(request,id):
 
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.pdata = pdata
+            comment.post = pdata
             comment.save()
 
             return redirect('postdetail',id=pdata.id)
     else:
         form = CommentForm()
+        print(pdata.image)
 
-    return render(request, "post_detail.html", {'pdata': pdata, 'form': form})
+    return render(request, "post_detail.html", {'pdata': pdata, 'form': form,"id":pdata.id})
 
 
 

@@ -16,6 +16,7 @@ class Posts(models.Model):
     aurt = models.CharField(max_length=15,default=User)
     title = models.CharField(max_length=20)
     content = models.TextField()
+    image = models.ImageField(upload_to='media/uploads/',blank=True,null=True)
     date = models.DateTimeField(blank=True,default=timezone.now)
     Username = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=1)
 

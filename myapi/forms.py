@@ -6,6 +6,7 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = "__all__"
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = comment

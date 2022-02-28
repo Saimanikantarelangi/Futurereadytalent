@@ -12,6 +12,59 @@
 </head>
 <body>
 {% block body %}
+
+{% if pdata.image %}
+
+<div class="container" style="position:relative; margin-top:40px;"></div>
+    <figure class="image mb-6">
+        <img src="{{pdata.image.url}}">
+    </figure>
+
+<section class="section" style="position:absolute;
+margin-top:-1050px; border-radius: 6px; height:fit-content; background-color: #ffffff3b;
+box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%); border: 1px solid #fffffab; width:1150px;margin-left:80px; padding-bottom:-25px;">
+          <div class="columns " style="padding-bottom:-25px;">
+            <div class="column is-8 is-offset-2">
+              <div class="content is-medium">
+                <h2 class="subtitle is-4" style="hover{color:white;}">{{pdata.date|date:'M d,y h:i'}}</h2>
+                <h1 class="title">{{pdata.title}}</h1>
+                <p>
+                    {{pdata.content}}
+                    <br><strong class="h3">by {{pdata.Username}}</strong><br>
+                </p>
+
+                  <hr>
+                  <h2 class="subtitle is-4">Comments</h2>
+                  {% if not pdata.comments.all %}
+                    <p>
+                        No comments yet!
+                    </p>
+                  {% endif %}
+                  {% for comment in pdata.comments.all %}
+                    <article class="media box" style="background-color: #ffffffab;">
+                        <div class="media-content">
+                            <strong>{{comment.name}} at {{comment.createdat|date:'M d,Y,h:i'}}
+                                <small>{{comment.createdat|timesince}} ago</small></strong><br>
+                                {{comment.body}}
+                        </div>
+                    </article>
+                  {% endfor %}
+                  <hr>
+                  <h2 class="subtitle is-4">Add a comment</h2>
+                <form method="post" class="mb-6" action="/postdetail/{{id}}">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-success" type="submit">Submit your perception</button>
+                        </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+{% else %}
 <section class="section">
           <div class="columns">
             <div class="column is-8 is-offset-2">
@@ -41,12 +94,12 @@
                   {% endfor %}
                   <hr>
                   <h2 class="subtitle is-4">Add a comment</h2>
-                <form method="post" class="mb-6" action=".">
+                <form method="post" class="mb-6" action="/postdetail/{{id}}">
                     {% csrf_token %}
                     {{form.as_p}}
                     <div class="field">
                         <div class="control">
-                            <button class="button is-success">Submit your perception</button>
+                            <button class="button is-success" type="submit">Submit your perception</button>
                         </div>
                     </div>
                 </form>
@@ -54,8 +107,14 @@
             </div>
           </div>
         </section>
+{% endif %}
 {% endblock %}
 <style>
+img{
+ background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
     .h3{
     float:right;
     font-style: italic;

@@ -1,43 +1,58 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body style="background-image: url('{% static 'images/loginback.jpg'%}'); background-repeat:no-repeat;
+background-size:cover; opacity:0.8; background-color:#FFFFCC;">
 <div class="log">
 
 <form action="login" method="post">
     {% csrf_token %}
-    <hr>
+
     <h1>Login</h1>
-    Username:
+
+    <br>
+    Username <br>
     <input type="text" name="uname" id="uname" placeholder="username"><br><br>
-    Password:
+    Password <br>
 
     <input type="password" name="upass" id="upass" placeholder="password">
     <br> <br>
     <button type="submit">sign in</button>
 
 </form>
-     <hr>
+
     </div>
 </body>
 <style>
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+button{
+border: 1px solid black;
+padding:5px;
+border-radius:4px;
+}
+button:hover{
+color: #FFFFCC;
+}
     .log{
-    margin-top:50px;
-    margin-left:40px;
-    width:580px;
-    height: 650px;
+background-color:#ffffff3b;
+    margin-top:90px;
+    margin-left:140px;
+    width:280px;
+    height: 320px;
     border-box:5px solid black;
-    border-radius:3px;
-    box-shadow:5px 5px 5px 5px black;
-    background-color:#FFFFCC;
+    border-radius:13px;
+    box-shadow:5px 5px 5px 4px black;
+
     padding:15px 20px;
     }
-    form{
-    margin-top:230px;
-    margin-left:100px;
-    }
+form{
+margin:20px 30px;
+}
 </style>
 </html>
