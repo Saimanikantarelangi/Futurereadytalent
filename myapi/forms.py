@@ -12,5 +12,10 @@ class CommentForm(forms.ModelForm):
         model = comment
         fields = ('name', 'email', 'body')
 
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Posts
+        fields = "__all__"
+
 
 

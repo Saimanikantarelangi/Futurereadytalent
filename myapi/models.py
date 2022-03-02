@@ -29,6 +29,10 @@ class Posts(models.Model):
     def __str__(self):
         return self.title+ ' by ' +self.aurt
 
+    def get_absolute_url(self):
+        return '/%s/%s/' % (self.title, self.date)
+
+
 class comment(models.Model):
     post = models.ForeignKey(Posts,null=True,related_name="comments",on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

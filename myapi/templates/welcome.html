@@ -13,6 +13,15 @@
 
 </head>
 <body>
+
+ <div class="divsmed" style="align-center">
+     <div class="smed">
+         <a   href="https://www.facebook.com/relangi.saimanikanta/" target="_blank" ><span class="screen-reader-text">Facebook | </span></a>
+         <a   href="https://www.instagram.com/saimanikantarelangi/" target="_blank" ><span class="screen-reader-text">Instagram |</span></a>
+         <a   href="https://twitter.com/Saimanikanta815" target="_blank"><span class="screen-reader-text"> Twitter |</span></a>
+         <a   href="https://www.linkedin.com/in/saimanikanta-relangi/" target="_blank"><span class="screen-reader-text"> LinkedIn</span></a>
+     </div>
+ </div>
 <nav class="navbar">
     <div class="container">
       <div class="navbar-brand">
@@ -55,14 +64,17 @@
 <div class="card1">
 {% for post in ldata %}
     <div class="scroll">
-        <h3 style="font-size:1rem;">{{post.date|date:'M d,y h:i'}}</h3>
         <h1 style="font-size:2rem;"><a href="postdetail/{{post.id}}">{{post.title}}</a></h1>
+        <h3 style="font-size:1rem;">by {{post.Username}} | {{post.date|date:'M d,y h:i'}}</h3>
         <p >{{post.content}}</p>
-        <h4 style=" font-size:15px;font-style:italic; float: right; "> by {{post.Username}}</h4>
+        <hr>
+
     </div>
 
 {% endfor %}
     </div>
+<button id="loadmore">Load More...</button>
+
 
 
 
@@ -70,6 +82,23 @@
 
 </body>
  <script>
+
+    const loadmore = document.querySelector('#loadmore');
+    let currentItems = 4;
+    loadmore.addEventListener('click', (e) => {
+        const elementList = [...document.querySelectorAll('.card1 .scroll')];
+        for (let i = currentItems; i < currentItems + 4; i++) {
+            if (elementList[i]) {
+                elementList[i].style.display = 'block';
+            }
+        }
+        currentItems += 4;
+
+        // Load more button will be hidden after list fully loaded
+        if (currentItems >= elementList.length) {
+            event.target.style.display = 'none';
+        }
+    })
     document.addEventListener('DOMContentLoaded', () => {
 
       // Get all "navbar-burger" elements
@@ -100,6 +129,40 @@
 body,html{
 background: #FFFFCC;
 }
+.card1 .scroll:nth-child(1) {
+    display: block;
+}
+.card1 .scroll:nth-child(2) {
+    display: block;
+}
+.card1 .scroll:nth-child(3) {
+    display: block;
+}
+.card1 .scroll:nth-child(4) {
+    display: block;
+}
+#loadmore {
+    float:right;
+    margin: 15px 125px;
+    display: table;
+    border: 2px solid black;
+    box-shadow: 5px 5px 5px black;
+    padding: 10px 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #48c78e;
+}
+.smed{
+text-align:center;
+border-radius:2px;
+background-color:#48c78e;
+padding:10px 10px;
+}
+.smed>a{
+color:white;
+}
  nav.navbar {
       height: 6rem !important;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06) !important;
@@ -129,13 +192,14 @@ body, h1, h2, h3, h4, h5, h6 {
   font-family: Arial, Helvetica, sans-serif;
 }
 .scroll {
-            display:block;
+            display: none;
             border: 2px solid #FFFFFF;
             padding:20px;
             width:1150px;
             height:170px;
             box-shadow:5px 5px 6px 5px black;
             margin:20px;
+            border-radius:5px;
             background: white;
             overflow:auto;
     }

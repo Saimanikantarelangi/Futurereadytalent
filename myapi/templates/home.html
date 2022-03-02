@@ -50,10 +50,10 @@
     </div>
   </nav>
 <div class="len">
-{% if data %}
-    <p>Number of Blogs {{ data|length }} :</p>
+    {% if data %}
+    <p>Number of Blogs {{ data|length }} </p>
     {% else %}
-    <p class="subtitle is-4">No blogs!</p>
+    <p class="subtitle is-4">No blogs! Begin now</p>
     {% endif %}
 </div>
 
@@ -62,8 +62,12 @@
 {% for post in data %}
 
     <section class="section">
+        <div class="but">
+            <a href="update/{{post.id}}">Edit</a>
+            <a href="delete/{{post.id}}">Delete</a>
+        </div>
           <div class="columns">
-            <div class="column is-8 is-offset-2">
+            <div class="column is-8 is-offset-2" style="padding-left:-10px;">
               <div class="content is-medium">
                 <h2 class="subtitle is-4">{{post.date|date:'M d,y h:i'}}</h2>
                 <h1 class="title"><a href="/postdetail/{{post.id}}">{{post.title}}</a></h1>
@@ -74,6 +78,7 @@
               </div>
             </div>
           </div>
+
         </section>
 
 {% endfor %}
@@ -86,6 +91,29 @@
 html,body{
 background: #FFFFCC;
 }
+
+.but{
+float:right;
+margin-left:20px;
+}
+.but>a {
+border-radius:5px;
+  position: relative;
+  background-color: #FFFFCC;
+  border: none;
+  font-size: 18px;
+  color: black;
+  padding: 10px;
+  width: fit-content;
+  height:fit-content;
+  text-align: center;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: auto;
+  cursor: pointer;
+}
+
+
 .card{
 background: #FFFFCC;
 margin-left:50px;

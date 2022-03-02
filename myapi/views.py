@@ -1,8 +1,8 @@
 from django.db.models import Q
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import UserForm,CommentForm
+from .forms import UserForm,CommentForm,UpdateForm
 from .models import Posts,User
 import requests
 
@@ -88,9 +88,31 @@ def postdetail(request,id):
             return redirect('postdetail',id=pdata.id)
     else:
         form = CommentForm()
-        print(pdata.image)
 
     return render(request, "post_detail.html", {'pdata': pdata, 'form': form,"id":pdata.id})
+
+def delete(request,id):
+        dat = get_object_or_404(Posts, id=id)
+        dat.delete()
+        post = Posts.objects.all()
+        return render(request,'home.html',{'post':post})
+
+def update(request,id):
+    data = get_object_or_404(Posts, id=id)
+    form = UpdateForm(instance=data)
+
+    if request.method == "POST":
+        form = UpdateForm(request.POST, instance=data)
+        if form.is_valid():
+            form.save()
+            return redirect('update')
+    context = {
+        "form": form,
+        'data':data
+
+    }
+    return render(request, 'home.html', context)
+
 
 
 

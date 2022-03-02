@@ -34,7 +34,7 @@ box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2
                 </p>
 
                   <hr>
-                  <h2 class="subtitle is-4">Comments</h2>
+                  <h2 class="subtitle is-4">Comments({{pdata.comments.all|length}})</h2>
                   {% if not pdata.comments.all %}
                     <p>
                         No comments yet!
@@ -43,7 +43,7 @@ box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2
                   {% for comment in pdata.comments.all %}
                     <article class="media box" style="background-color: #ffffffab;">
                         <div class="media-content">
-                            <strong>{{comment.name}} at {{comment.createdat|date:'M d,Y,h:i'}}
+                            <strong>{{comment.name}} at {{comment.createdat|date:'M d,y h:i'}} <br>
                                 <small>{{comment.createdat|timesince}} ago</small></strong><br>
                                 {{comment.body}}
                         </div>
@@ -77,7 +77,7 @@ box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2
                 </p>
 
                   <hr>
-                  <h2 class="subtitle is-4">Comments</h2>
+                  <h2 class="subtitle is-4">Comments({{pdata.comments.all|length}})</h2>
                   {% if not pdata.comments.all %}
                     <p>
                         No comments yet!
