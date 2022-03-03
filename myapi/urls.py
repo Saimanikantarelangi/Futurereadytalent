@@ -11,6 +11,7 @@ urlpatterns = [
     path('search', search, name='search'),
     path('addpost',addpost, name='addpost'),
     path('contact',contact, name='contact'),
+    path('show',show,name="show"),
     path('delete/<int:id>',delete, name='delete'),
     path('update/<int:id>',update, name='update'),
 

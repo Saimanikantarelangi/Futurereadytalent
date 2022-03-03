@@ -10,12 +10,14 @@ def home(request):
     data = Posts.objects.all().order_by('title')
     return render(request,'home.html',{'data':data,})
 
+
+
+
 def register(request):
    if request.method == "POST":
 
      form=UserForm(request.POST)
      if form.is_valid():
-
         form.save()
         return render(request,"login.html")
 
@@ -94,24 +96,30 @@ def postdetail(request,id):
 def delete(request,id):
         dat = get_object_or_404(Posts, id=id)
         dat.delete()
-        post = Posts.objects.all()
-        return render(request,'home.html',{'post':post})
+        return  redirect("show")
+def show(request):
+    e = request.session['username']
+    ex = User.objects.get(Username=e)
+    data = Posts.objects.all().order_by('title').filter(Username=ex)
+    return render(request, "home.html", {'data': data, 'username': ex})
 
 def update(request,id):
     data = get_object_or_404(Posts, id=id)
-    form = UpdateForm(instance=data)
 
-    if request.method == "POST":
-        form = UpdateForm(request.POST, instance=data)
-        if form.is_valid():
+
+
+    form = UpdateForm(request.POST or None, instance=data)
+    if form.is_valid():
             form.save()
-            return redirect('update')
+            e=request.session['username']
+            ex=User.objects.get(Username=e)
+            return redirect("show")
     context = {
         "form": form,
         'data':data
 
     }
-    return render(request, 'home.html', context)
+    return render(request, 'update.html', context)
 
 
 
